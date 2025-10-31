@@ -9,6 +9,7 @@ from wikiscrapers.paragraphs import Paragraph
 from wikiscrapers.filemanager import Save
 
 def main():
+    
     """Main workflow for extracting leaders, parsing their Wikipedia pages, and saving the results."""
 
     logging.basicConfig(
@@ -22,20 +23,21 @@ def main():
     print("=== Starting Leader Extraction Workflow ===")
     logging.info("=== Starting Leader Extraction Workflow ===")
 
-    session = None  # <-- initialize to avoid unbound warning
+    session = None  # <-- initialise to avoid unbound warning
 
     try:
-        # Step 1: Initialize Leader (creates session)
+        # Step 1: Initialise Leader (creates session)
         leader_api = Leader()
         session = leader_api.session  # reuse this session everywhere
 
-        # Step 2: Initialize other classes with the same session
+        # Step 2: Initialise other classes with the same session
         paragraph_extractor = Paragraph(session=session)
         storage = Save()
 
         # Step 3: Fetch leaders and Wikipedia pages
         print("Fetching leaders and Wikipedia pages...")
         leaders_per_country, wiki_responses = leader_api.get_leaders()
+        
         print(f"Fetched leaders for {len(leaders_per_country)} countries.")
         logging.info(f"Fetched leaders for {len(leaders_per_country)} countries.")
 
@@ -62,12 +64,12 @@ def main():
             "paragraphs_per_leader": paragraphs_per_leader
         })
 
-        print("✅ Workflow complete. Data saved to 'leaders.json'.")
-        logging.info("✅ Workflow complete. Data saved to 'leaders.json'.")
+        print("Workflow complete. Data saved to 'leaders.json'.")
+        logging.info("Workflow complete. Data saved to 'leaders.json'.")
 
     except Exception as e:
         logging.error(f"Workflow failed: {e}", exc_info=True)
-        print(f"❌ Workflow failed: {e}")
+        print(f"Workflow failed: {e}")
 
     finally:
         if session is not None:
