@@ -66,6 +66,12 @@ def main():
 
         print("Workflow complete. Data saved to 'leaders.json'.")
         logging.info("Workflow complete. Data saved to 'leaders.json'.")
+        
+        # Step 6: Save paragraphs separately to CSV
+        print("Saving paragraphs to CSV file...")
+        storage.export_csv("paragraphs", paragraphs_per_leader)
+        print("Paragraphs saved to 'paragraphs.csv'.")
+        logging.info("Paragraphs saved to 'paragraphs.csv'.")
 
     except Exception as e:
         logging.error(f"Workflow failed: {e}", exc_info=True)
