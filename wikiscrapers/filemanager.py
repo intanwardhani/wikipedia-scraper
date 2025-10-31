@@ -3,6 +3,7 @@
 # Author: Intan K. Wardhani
 
 import json
+import csv
 
 class Save:
     
@@ -52,4 +53,15 @@ class Save:
         with open(f"{filename}.json", "r", encoding="utf-8") as f:
             return json.load(f)
 
+    def export_csv(self, filename: str, data: list[dict]) -> None:
         
+        """Export a list of dictionaries to a CSV file."""
+        
+        if not data:
+            print("No data to export.")
+            return
+
+        with open(f"{filename}.csv", "w", encoding="utf-8", newline="") as f:
+            writer = csv.DictWriter(f, fieldnames=data[0].keys())
+            writer.writeheader()
+            writer.writerows(data)
